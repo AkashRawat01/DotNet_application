@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dotnet-chart.fullname" . }}-dotnet
+  namespace : {{ .Values.namespace}}
+  labels:
+    app: dotnet
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: dotnet
+  template:
+    metadata:
+      labels:
+        app: dotnet
+    spec:
+      containers:
+        - name: dotnet
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+      nodeSelector:
+      {{- toYaml .Values.nodeSelector | nindent 8 }}
+      tolerations:
+      {{- toYaml .Values.tolerations | nindent 8 }}
+      affinity:
+      {{- toYaml .Values.affinity | nindent 8 }}

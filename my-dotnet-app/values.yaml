@@ -1,0 +1,26 @@
+# values.yaml
+
+namespace: application
+
+replicaCount: 1
+
+image:
+  repository: dotnet-app-local #166000963935.dkr.ecr.us-east-1.amazonaws.com/blue-harvest-images
+  tag: 2 #latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 77
+  targetPort: 80
+
+ingress:
+  enabled: false
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
